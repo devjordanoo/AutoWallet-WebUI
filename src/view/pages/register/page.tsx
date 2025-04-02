@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom"
 
 import { Input, Button } from "@/view/components"
+import { useRegisterController } from "./useRegisterController"
 
 export const Register = () => {
+  const { errors, handleSubmit, register } = useRegisterController()
+
   return (
     <>
       <header className="gap-4 flex flex-col items-center text-center">
@@ -14,10 +17,10 @@ export const Register = () => {
         </p>
       </header>
 
-      <form className="flex flex-col gap-4 mt-[60px]">
-        <Input name="name" placeholder="Nome" type="text"  />
-        <Input name="email" placeholder="E-mail" type="email"  />
-        <Input name="password" placeholder="Senha" type="password" />
+      <form className="flex flex-col gap-4 mt-[60px]" onSubmit={handleSubmit}>
+        <Input {...register("name")} error={errors.name?.message} placeholder="Nome" type="text"  />
+        <Input {...register("email")} error={errors.email?.message} placeholder="E-mail" type="email"  />
+        <Input {...register("password")} error={errors.password?.message} placeholder="Senha" type="password" />
 
         <Button className="mt-2" type="submit">Criar conta</Button>
       </form>
