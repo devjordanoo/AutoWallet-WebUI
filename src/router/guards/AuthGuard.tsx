@@ -1,3 +1,4 @@
+import { useAuth } from "@/app/hooks";
 import { Navigate, Outlet } from "react-router-dom"
 
 interface AuthLayoutProps {
@@ -5,7 +6,7 @@ interface AuthLayoutProps {
 }
 
 export const AuthGuard = ({ isPrivate }: AuthLayoutProps) => {
-  const signedIn = false;
+  const { signedIn } = useAuth();
 
   if(!signedIn && isPrivate) {
     return <Navigate to="/login" replace />

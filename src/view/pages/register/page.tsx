@@ -4,7 +4,7 @@ import { Input, Button } from "@/view/components"
 import { useRegisterController } from "./useRegisterController"
 
 export const Register = () => {
-  const { errors, handleSubmit, register } = useRegisterController()
+  const { errors, handleSubmit, register, isPending } = useRegisterController()
 
   return (
     <>
@@ -22,7 +22,7 @@ export const Register = () => {
         <Input {...register("email")} error={errors.email?.message} placeholder="E-mail" type="email"  />
         <Input {...register("password")} error={errors.password?.message} placeholder="Senha" type="password" />
 
-        <Button className="mt-2" type="submit">Criar conta</Button>
+        <Button className="mt-2" type="submit" isLoading={isPending}>Criar conta</Button>
       </form>
     </>
   )

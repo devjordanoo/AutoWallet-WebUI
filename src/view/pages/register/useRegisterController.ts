@@ -1,6 +1,12 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import { useMutation } from "@tanstack/react-query"
+import toast from "react-hot-toast"
+
+import { authService } from "@/app/services"
+import { SignupData } from "@/app/services/auth/_signup" 
+import { useAuth } from "@/app/hooks"
 
 const schema = z.object({
   name: z.string().nonempty(),
@@ -11,6 +17,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export const useRegisterController = () => {
+  const { signin } = useAuth()
+
   const { 
     handleSubmit: hookFormHandleSubmit,
     register,
@@ -19,9 +27,20 @@ export const useRegisterController = () => {
     resolver: zodResolver(schema),
   });
 
-  const handleSubmit = hookFormHandleSubmit((data) => {
-    console.log(data)
+  const { isPending, mutateAsync } = useMutation({ 
+    mutationFn: async (data: SignupData) => {
+      return authService.signup(data)
+    }
   })
 
-  return { handleSubmit, register, errors }
+  const handleSubmit = hookFormHandleSubmit(async (data) => {
+    try {
+      const { accessToken } = await mutateAsync(data)
+      signin(accessToken);
+    } catch {
+      toast.error("Something went wrong")
+    }
+  })
+
+  return { handleSubmit, register, errors, isPending }
 }
