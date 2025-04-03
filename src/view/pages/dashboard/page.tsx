@@ -7,7 +7,7 @@ export const Dashboard = () => {
     <div>
       <h1>Dashboard</h1>
 
-      <button onClick={signout}>Signout</button>
+      <button onClick={() => signout()}>Signout</button>
     </div>
   )
 }

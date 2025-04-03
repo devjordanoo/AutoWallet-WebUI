@@ -1,7 +1,5 @@
 import { ComponentProps, forwardRef } from "react"
 import { CrossCircledIcon } from "@radix-ui/react-icons"
-import { twMerge } from "tailwind-merge"
-import clsx from "clsx"
 import { cn } from "@/app/utils/cn"
 
 interface InputProps extends ComponentProps<'input'> {

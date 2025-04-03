@@ -17,10 +17,15 @@ export const AuthContext = createContext<AuthContextValue>({} as AuthContextValu
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [ signedIn, setSignedIn ] = useState<boolean>(() => {
     const accessToken = localStorage.getItem(LocalStorageKeys.accessToken)
+
+    if(accessToken) {
+      httpClient.setAuthHeader(accessToken)
+    }
+
     return !!accessToken
   })
 
-  const { removeQueries } = useQueryClient();
+  const queryClient = useQueryClient();
   const { isError, isFetching, isSuccess } = useQuery({
     queryKey: ["users", "me"],
     queryFn: async () => usersService.me(),
@@ -37,10 +42,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signout = useCallback(() => {
     localStorage.removeItem(LocalStorageKeys.accessToken)
-    removeQueries({ queryKey: ["users", "me"] })
+    queryClient.clear()
 
     setSignedIn(false)
-  }, [removeQueries])
+  }, [])
 
   useEffect(() => {
     if(isError) {
