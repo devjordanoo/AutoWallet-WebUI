@@ -2,7 +2,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom"
 import { AuthGuard } from "./guards/AuthGuard"
 
 import { Login, Register, Dashboard } from "@/view/pages"
-import { AuthLayout } from "@/view/layouts"
+import { AuthLayout, PrivateLayout } from "@/view/layouts"
 
 export const Router = () => {
 
@@ -17,7 +17,9 @@ export const Router = () => {
           </Route>
 
           <Route element={<AuthGuard isPrivate={true} />}>
-            <Route path="/" element={<Dashboard />} /> 
+            <Route element={<PrivateLayout />}>
+              <Route path="/" element={<Dashboard />} /> 
+            </Route>
           </Route>
       </Routes>
     </BrowserRouter>

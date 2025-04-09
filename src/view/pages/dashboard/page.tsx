@@ -1,13 +1,11 @@
-import { useAuth } from "@/app/hooks"
+import { Transactions, Wallet } from "./_components"
 
 export const Dashboard = () => {
-  const { signout } = useAuth()
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-
-      <button onClick={() => signout()}>Signout</button>
+    <div className="flex flex-1 h-full gap-4 flex-col md:flex-row">
+        <Wallet />
+        <Transactions />
     </div>
   )
 }
