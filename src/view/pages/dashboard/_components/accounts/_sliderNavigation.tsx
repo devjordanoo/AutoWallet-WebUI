@@ -3,7 +3,12 @@ import { useSwiper } from "swiper/react"
 
 const buttonChevronClass = "py-3 pl-2.5 pr-3.5 rounded-full enabled:cursor-pointer enabled:hover:bg-white/10 transition-colors disabled:opacity-40"
 
-export const SliderNavigation = () => {
+interface SlicerNavigationProps {
+  isBeginning: boolean
+  isEnd: Boolean
+}
+
+export const SliderNavigation = ({}: SlicerNavigationProps) => {
    const slider = useSwiper()
 
   return (
