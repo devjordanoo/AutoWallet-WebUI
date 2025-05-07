@@ -16,6 +16,8 @@ export const useAccountsController = () => {
     setSliderState,
     windowWidth,
     areValuesVisible,
-    toggleValuesVisiblity
+    toggleValuesVisiblity,
+    isInitialLoading: false,
+    accounts: []
   }
 }
